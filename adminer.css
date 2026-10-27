@@ -1,4 +1,312 @@
 /*
  * Adminer Theme
  * A minimal dark theme for Adminer
+ *
+ * based on the original Adminer dark theme by
+ * Robert Mesaros, https://www.rmsoft.sk
+ * @see https://github.com/vrana/adminer/blob/main/adminer/static/dark.css
+ *
+ * @author Marc Anton Dahmen, https://marcdahmen.de
  */
+
+html {
+	--border-1: hsl(220 11% 16%);
+	--border-2: hsl(from var(--border-1) h s calc(l + 5));
+	--border-3: hsl(from var(--border-1) h s calc(l + 10));
+	--border-4: hsl(from var(--border-1) h s calc(l + 15));
+
+	--fg-1: hsl(220 11% 94%);
+	--fg-2: hsl(220 11% 75%);
+	--fg-3: hsl(220 10% 61%);
+	--fg-4: hsl(220 9% 52%);
+
+	--surface-1: hsl(220 11% 7%);
+	--surface-2: hsl(from var(--surface-1) h s calc(l + 3));
+	--surface-3: hsl(from var(--surface-1) h s calc(l + 6));
+	--surface-4: hsl(from var(--surface-1) h s calc(l + 9));
+	--surface-5: hsl(from var(--surface-1) h s calc(l + 12));
+	--surface-6: hsl(from var(--surface-1) h s calc(l + 15));
+	--surface-7: hsl(from var(--surface-1) h s calc(l + 18));
+	--surface-8: hsl(from var(--surface-1) h s calc(l + 21));
+
+	--link: hsl(220 9% 52%);
+	--link-hover: hsl(220 10% 61%);
+
+	--input-fg: var(--fg-1);
+	--input-bg: var(--surface-4);
+
+	--button-fg: var(--fg-2);
+	--button-bg: var(--surface-7);
+
+	--thead: var(--fg-4);
+	--mark: var(--surface-8);
+	--active: hsl(220 11% 94%);
+
+	--char: var(--fg-2);
+	--date: var(--fg-2);
+	--enum: var(--fg-3);
+	--binary: var(--fg-3);
+
+	--message-fg: var(--fg-1);
+	--message-bg: var(--surface-5);
+	--message-border: var(--border-4);
+
+	--error-fg: #ff9a9a;
+	--error-bg: #3b1d1d;
+	--error-bold-bg: #4d2626;
+	--error-border: #e76f6f;
+
+	/* Original Adminer custom properties. */
+	--bg: var(--surface-1);
+	--fg: var(--fg-2);
+	--dim: var(--surface-3);
+	--lit: var(--surface-2);
+
+	color-scheme: dark;
+}
+
+body {
+	font:
+		90% / 1.35 system-ui,
+		sans-serif;
+}
+
+a,
+a:visited {
+	color: var(--link);
+}
+
+a:link:hover,
+a:visited:hover {
+	color: var(--link-hover);
+}
+
+button.link {
+	color: var(--link);
+}
+
+button.link:hover {
+	color: var(--link-hover);
+}
+
+h1 {
+	border-color: var(--border-2);
+	color: var(--fg-2);
+}
+
+h2 {
+	border-color: var(--border-2);
+	color: var(--fg-1);
+	background: var(--dim);
+}
+
+table,
+td,
+th,
+.column {
+	border-color: var(--border-2);
+}
+
+th {
+	background: var(--surface-3);
+}
+
+thead td,
+thead th,
+thead th a {
+	color: var(--thead);
+}
+
+fieldset {
+	border-color: var(--border-2);
+}
+
+code {
+	font:
+		90% / 1.25 ui-monospace,
+		'Cascadia Code',
+		'Source Code Pro',
+		Menlo,
+		Consolas,
+		'DejaVu Sans Mono',
+		monospace !important;
+	background: var(--surface-5);
+}
+
+code * {
+	font-weight: normal !important;
+}
+
+mark {
+	color: var(--fg-2);
+	background: var(--mark);
+}
+
+tbody tr:hover td,
+tbody tr:hover th {
+	background: var(--surface-4);
+}
+
+tbody tr td {
+	background: var(--surface-2);
+}
+
+.odds tbody tr:nth-child(2n) td {
+	background: var(--surface-3);
+}
+
+pre.jush {
+	background: var(--lit);
+}
+
+select,
+textarea,
+input {
+	color: var(--input-fg);
+	background: var(--input-bg);
+	border: 1px solid var(--border-3);
+}
+
+input[type='submit'] {
+	color: var(--button-fg);
+	background: var(--button-bg);
+	border: 1px solid var(--border-4);
+}
+
+input.default {
+	box-shadow: 1px 1px 1px var(--input-bg);
+}
+
+input.required,
+input.maxlength,
+textarea.maxlength {
+	box-shadow: 1px 1px 1px var(--error-border);
+}
+
+.version {
+	color: var(--fg-2);
+}
+
+.error {
+	color: var(--error-fg);
+	background: var(--error-bg);
+	border: 1px solid var(--error-border);
+}
+
+.error b {
+	background: var(--error-bold-bg);
+}
+
+.message {
+	color: var(--message-fg);
+	background: var(--message-bg);
+	border: 1px solid var(--message-border);
+}
+
+.char {
+	color: var(--char);
+}
+
+.date {
+	color: var(--date);
+}
+
+.enum {
+	color: var(--enum);
+}
+
+.binary {
+	color: var(--binary);
+}
+
+.js .checkable .checked td,
+.js .checkable .checked th {
+	background: var(--surface-6);
+	color: var(--fg-1);
+}
+
+.js .checkable .checked:hover td,
+.js .checkable .checked:hover th {
+	background: var(--surface-7);
+}
+
+.js .checkable .checked a {
+	color: var(--fg-1);
+}
+
+.time {
+	color: var(--fg-3);
+}
+
+.icon {
+	filter: invert(1);
+	background-color: var(--surface-3);
+}
+
+.icon:hover {
+	background-color: var(--error-fg);
+}
+
+#menu {
+	border-color: var(--border-4);
+}
+
+#menu p,
+#logins,
+#tables {
+	border-color: var(--border-2);
+}
+
+#h1 {
+	color: var(--fg-2);
+}
+
+#version,
+.plugins .update {
+	color: var(--error-fg);
+}
+
+#schema .table {
+	border-color: var(--border-1);
+}
+
+#help {
+	border-color: var(--border-1);
+	background: var(--lit);
+}
+
+#schema div.table a {
+	color: var(--fg-3);
+}
+
+#menu .active {
+	color: var(--active);
+}
+
+#edit-fields tbody tr:hover td,
+#edit-fields tbody tr:hover th {
+	background: var(--surface-6);
+}
+
+:target {
+	color: var(--thead);
+}
+
+.jush {
+	--text-color: var(--fg-2);
+	--bg-color: var(--surface-1);
+	--border-color: var(--border-2);
+	--php-color: var(--fg-2);
+	--string-color: var(--fg-3);
+	--string-plain-color: var(--fg-3);
+	--keyword-color: var(--fg-1);
+	--identifier-color: var(--fg-2);
+	--value-color: var(--fg-1);
+	--number-color: var(--fg-3);
+	--attribute-color: var(--fg-3);
+	--js-bg-color: var(--surface-2);
+	--css-bg-color: var(--surface-2);
+	--php-bg-color: var(--surface-2);
+	--php-sql-bg-color: var(--surface-2);
+	--mark-bg-color: var(--surface-8);
+}

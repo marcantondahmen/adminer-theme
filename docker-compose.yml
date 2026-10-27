@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: northwind
+    volumes:
+      - ./seed:/docker-entrypoint-initdb.d:ro
+
+  adminer:
+    image: adminer:latest
+    depends_on:
+      - db
+    ports:
+      - "8000:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    volumes:
+      - ./adminer.css:/var/www/html/adminer.css:ro

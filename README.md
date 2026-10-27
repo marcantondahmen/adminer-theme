@@ -23,7 +23,7 @@ Requirements: Docker (with Compose) and curl.
 
 This downloads the Northwind seed to `seed/northwind.sql` on first run, then starts Postgres and Adminer in the foreground. Ctrl-C stops everything and removes containers, networks and volumes, so every run starts with a freshly seeded database.
 
-Open http://localhost:8000/?pgsql=db&username=postgres and log in with:
+Open http://localhost:8000. The dev-only plugin `plugins/autologin.php` logs in automatically (logging out logs straight back in) with:
 
 | Field    | Value      |
 | -------- | ---------- |
@@ -42,6 +42,8 @@ The repo is mounted read-only into the Adminer container, and `adminer.css` is s
 ├── adminer.css          # the theme
 ├── dev.sh               # seed download + compose up/down
 ├── docker-compose.yml   # postgres + adminer services
+├── plugins/
+│   └── autologin.php    # dev-only Adminer auto-login plugin
 └── seed/                # downloaded seed SQL (gitignored)
 ```
 

@@ -17,10 +17,11 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: db
     # Mount the repo dir (not the single file) so atomic editor saves are
-    # picked up, then symlink adminer.css into the web root.
+    # picked up, then symlink adminer.css into the web root and the dev-only
+    # auto-login plugin into plugins-enabled.
     volumes:
       - ./:/theme:ro
     command:
       - sh
       - -c
-      - ln -sf /theme/adminer.css adminer.css && exec php -S [::]:8080 -t /var/www/html
+      - ln -sf /theme/adminer.css adminer.css && ln -sf /theme/plugins/autologin.php plugins-enabled/autologin.php && exec php -S [::]:8080 -t /var/www/html

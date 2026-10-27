@@ -10,11 +10,12 @@ A custom CSS theme for [Adminer](https://www.adminer.org/), the PHP database man
 ./dev.sh   # downloads seed if missing, runs docker compose up (foreground) → http://localhost:8000; Ctrl-C/exit runs docker compose down -v
 ```
 
-Login: System `PostgreSQL`, Server `db`, User `postgres`, Password `postgres`, Database `northwind`.
+Auto-login via `plugins/autologin.php` (dev only; disables the login CSRF check). Credentials: System `PostgreSQL`, Server `db`, User `postgres`, Password `postgres`, Database `northwind`.
 
 ## Structure
 
 - `adminer.css`: the theme. The `adminer` service mounts the repo root read-only at `/theme` (outside the web root) and its `command` symlinks `/var/www/html/adminer.css` to `/theme/adminer.css`. Adminer loads it automatically, and edits show on browser reload with no rebuild. A directory mount is used on purpose: a single-file bind mount goes stale when an editor saves atomically (write new file + rename), and Adminer then fails with `file_get_contents(adminer.css): Failed to open stream`.
+- `plugins/autologin.php`: dev-only Adminer plugin, symlinked by the `adminer` `command` into `/var/www/html/plugins-enabled/` (the image `require`s each file there and expects it to return a plugin instance). It injects `$_POST['auth']` on requests with no `username` param and no POST data, so logging out logs straight back in.
 - `docker-compose.yml`: `db` (`postgres:latest`) and `adminer` (`adminer:latest`) services.
 - `seed/`: downloaded seed SQL, mounted to `/docker-entrypoint-initdb.d`. Postgres runs it only when the data dir is empty. There is no named volume, so every `./dev.sh` run starts with a freshly seeded DB.
 - `dev.sh`: the only entry point. Seeds via curl, cleans up through an `EXIT`/`INT`/`TERM` trap.

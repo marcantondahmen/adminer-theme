@@ -16,5 +16,11 @@ services:
       - "8000:8080"
     environment:
       ADMINER_DEFAULT_SERVER: db
+    # Mount the repo dir (not the single file) so atomic editor saves are
+    # picked up, then symlink adminer.css into the web root.
     volumes:
-      - ./adminer.css:/var/www/html/adminer.css:ro
+      - ./:/theme:ro
+    command:
+      - sh
+      - -c
+      - ln -sf /theme/adminer.css adminer.css && exec php -S [::]:8080 -t /var/www/html

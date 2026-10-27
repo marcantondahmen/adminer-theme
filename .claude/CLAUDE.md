@@ -14,7 +14,7 @@ Login: System `PostgreSQL`, Server `db`, User `postgres`, Password `postgres`, D
 
 ## Structure
 
-- `adminer.css`: the theme, the only file in the repo root that gets mounted into a container. It is bind-mounted read-only to `/var/www/html/adminer.css` in the `adminer` service, and Adminer loads it automatically. Edits show on browser reload with no rebuild.
+- `adminer.css`: the theme. The `adminer` service mounts the repo root read-only at `/theme` (outside the web root) and its `command` symlinks `/var/www/html/adminer.css` to `/theme/adminer.css`. Adminer loads it automatically, and edits show on browser reload with no rebuild. A directory mount is used on purpose: a single-file bind mount goes stale when an editor saves atomically (write new file + rename), and Adminer then fails with `file_get_contents(adminer.css): Failed to open stream`.
 - `docker-compose.yml`: `db` (`postgres:latest`) and `adminer` (`adminer:latest`) services.
 - `seed/`: downloaded seed SQL, mounted to `/docker-entrypoint-initdb.d`. Postgres runs it only when the data dir is empty. There is no named volume, so every `./dev.sh` run starts with a freshly seeded DB.
 - `dev.sh`: the only entry point. Seeds via curl, cleans up through an `EXIT`/`INT`/`TERM` trap.
@@ -22,5 +22,5 @@ Login: System `PostgreSQL`, Server `db`, User `postgres`, Password `postgres`, D
 ## Notes
 
 - Keep `ADMINER_DESIGN` unset in compose, or the image's entrypoint overwrites `adminer.css` with a bundled design.
-- On Docker Desktop for macOS, atomic-save editors can break the single-file bind mount. Run `docker compose restart adminer` (in a second terminal) if CSS changes stop showing up.
+- The `adminer` service overrides `command` (not the entrypoint) and ends with the image's default CMD, `php -S [::]:8080 -t /var/www/html`. Keep the two in sync if the upstream image changes.
 - Style against Adminer's own markup and classes (e.g. `#menu`, `#content`, `#breadcrumb`, `.links`, `table.checkable`). Check the rendered HTML at http://localhost:8000 rather than guessing selectors.

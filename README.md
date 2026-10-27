@@ -33,9 +33,7 @@ Open http://localhost:8000/?pgsql=db&username=postgres and log in with:
 | Password | postgres   |
 | Database | northwind  |
 
-`adminer.css` is bind-mounted into the Adminer container, so edits are visible after a browser reload, with no rebuild or restart.
-
-> If edits stop showing up, your editor's atomic/safe-write save may have broken the single-file bind mount (a known Docker Desktop for macOS issue). Run `docker compose restart adminer` (in a second terminal) or turn off atomic saving in the editor.
+The repo is mounted read-only into the Adminer container, and `adminer.css` is symlinked into the web root, so edits are visible after a browser reload, with no rebuild or restart.
 
 ### Project structure
 

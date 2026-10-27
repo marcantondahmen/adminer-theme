@@ -21,6 +21,9 @@ Requirements: Docker (with Compose) and curl.
 ./dev.sh
 ```
 
+> [!WARNING]
+> The Docker setup is for local development only. It uses hardcoded database credentials and an auto-login plugin that skips authentication and disables Adminer's login CSRF check. Never use it as is in production.
+
 This downloads the Northwind seed to `seed/northwind.sql` on first run, then starts Postgres and Adminer in the foreground. Ctrl-C stops everything and removes containers, networks and volumes, so every run starts with a freshly seeded database.
 
 Open http://localhost:8000. The dev-only plugin `plugins/autologin.php` logs in automatically (logging out logs straight back in) with:

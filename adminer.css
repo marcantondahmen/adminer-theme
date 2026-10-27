@@ -15,10 +15,10 @@ html {
 	--border-3: hsl(from var(--border-1) h s calc(l + 10));
 	--border-4: hsl(from var(--border-1) h s calc(l + 15));
 
-	--fg-1: hsl(220 11% 94%);
-	--fg-2: hsl(220 11% 75%);
-	--fg-3: hsl(220 10% 61%);
-	--fg-4: hsl(220 9% 52%);
+	--fg-1: hsl(220 11% 96%);
+	--fg-2: hsl(220 11% 74%);
+	--fg-3: hsl(220 10% 63%);
+	--fg-4: hsl(220 9% 54%);
 
 	--surface-1: hsl(220 11% 7%);
 	--surface-2: hsl(from var(--surface-1) h s calc(l + 3));
@@ -29,8 +29,8 @@ html {
 	--surface-7: hsl(from var(--surface-1) h s calc(l + 18));
 	--surface-8: hsl(from var(--surface-1) h s calc(l + 21));
 
-	--link: hsl(220 9% 52%);
-	--link-hover: hsl(220 10% 61%);
+	--link: var(--fg-4);
+	--link-hover: var(--fg-3);
 
 	--input-fg: var(--fg-1);
 	--input-bg: var(--surface-4);
@@ -40,7 +40,7 @@ html {
 
 	--thead: var(--fg-4);
 	--mark: var(--surface-8);
-	--active: hsl(220 11% 94%);
+	--active: var(--fg-1);
 
 	--char: var(--fg-2);
 	--date: var(--fg-2);
